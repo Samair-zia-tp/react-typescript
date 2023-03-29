@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { useRef } from "react";
+import { TodosContext } from "../store/todos.context";
 import classes from './NewTodo.module.css'
 
-const NewTodo: React.FC<{onAddTodo: (text: string) => void}> = (props) => {
+const NewTodo: React.FC = () => {
+
+  const todosCtx = useContext(TodosContext)
   
   // we cannot use just useRef here simply we need to define the type of ref, in this case on which element we want to attach this to
   const todoTextInputRef= useRef<HTMLInputElement>(null)
@@ -17,7 +21,7 @@ const NewTodo: React.FC<{onAddTodo: (text: string) => void}> = (props) => {
       return
     }
 
-    props.onAddTodo(enteredText)
+    todosCtx.addTodo(enteredText)
 
   }
   return <form onSubmit={submitHandler} className={classes.form}>
